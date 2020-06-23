@@ -1,4 +1,8 @@
+import hashlib
+
 from rest_framework import status
+
+from ..constant_file import SALT
 from ..repositories.user_repository import UserRepository
 from rest_framework.response import Response
 from rest_framework import viewsets
@@ -18,7 +22,8 @@ class LoginView(viewsets.ViewSet):
             if user is None:
                 raise InvalidEmail
             else:
-                if user.password == password:
+                encoded_password = hashlib.md5((str(password) + SALT).encode('utf-8')).hexdigest()
+                if user.password == encoded_password:
                     request.session['user_id'] = user.id
                     request.session['user_type'] = user.type
                     return Response("logged in Successfully", status=status.HTTP_200_OK)

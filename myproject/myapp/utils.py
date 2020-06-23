@@ -45,3 +45,39 @@ class NoContent(APIException):
     status_code = status.HTTP_204_NO_CONTENT
     default_code = 601
     default_detail = "No Content sent"
+
+
+class UnAuthorized(APIException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    default_code = 602
+    default_detail = "Only seller can add a product"
+
+
+class NotLoggedIn(APIException):
+    status_code = status.HTTP_403_FORBIDDEN
+    default_code = 603
+    default_detail = "You should Log in First"
+
+
+class BadRequest(APIException):
+    status_code = status.HTTP_400_BAD_REQUEST
+    default_code = 604
+    default_detail = "Bad Request"
+
+
+class InvalidName(APIException):
+    status_code = status.HTTP_406_NOT_ACCEPTABLE
+    default_code = 605
+    default_detail = "Invalid name type"
+
+
+class InvalidPassword(APIException):
+    status_code = status.HTTP_406_NOT_ACCEPTABLE
+    default_code = 606
+    default_detail = "Invalid password type"
+
+
+class InvalidUserType(APIException):
+    status_code = status.HTTP_406_NOT_ACCEPTABLE
+    default_code = 607
+    default_detail = "Invalid user type , choose seller/customer"

@@ -1,3 +1,5 @@
+import hashlib
+from ..constant_file import SALT
 from ..models.user_model import User
 from ..common_file import Session
 
@@ -10,3 +12,11 @@ class UserRepository:
             return user_[0]
         else:
             return None
+
+    def create_user(self, name, email, password, type):
+        encoded_password = hashlib.md5((str(password) + SALT).encode('utf-8')).hexdigest()
+        user = User(name=name, email=email, password=encoded_password, type=type)
+
+        Session.add(user)
+        Session.commit()
+        Session.close()
